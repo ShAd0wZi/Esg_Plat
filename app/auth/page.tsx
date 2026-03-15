@@ -13,9 +13,11 @@ export default function AuthPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState<{ type: "error" | "success"; message: string } | null>(null);
 
     const handleSignUp = async () => {
         setLoading(true);
+        setStatus(null);
         const { error } = await supabase.auth.signUp({
             email,
             password,
@@ -23,16 +25,17 @@ export default function AuthPage() {
 
         if (error) {
             console.error("Sign Up Error:", error);
-            alert("Error: " + error.message);
+            setStatus({ type: "error", message: error.message });
             setLoading(false);
         } else {
-            alert("Account created! Logging you in...");
+            setStatus({ type: "success", message: "Account created. Redirecting to onboarding..." });
             router.push("/onboarding"); // Send them to create company profile
         }
     };
 
     const handleSignIn = async () => {
         setLoading(true);
+        setStatus(null);
         const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
@@ -40,7 +43,7 @@ export default function AuthPage() {
 
         if (error) {
             console.error("Sign In Error:", error);
-            alert("Login failed: " + error.message);
+            setStatus({ type: "error", message: "Login failed: " + error.message });
             setLoading(false);
         } else {
             router.push("/dashboard"); // If they already have an account, go to dash
@@ -48,15 +51,25 @@ export default function AuthPage() {
     };
 
     return (
-        <div className="flex h-screen w-full items-center justify-center bg-slate-50 px-4">
-            <Card className="w-full max-w-sm">
+        <div className="flex min-h-screen w-full items-center justify-center bg-background px-4 py-8">
+            <Card className="w-full max-w-sm border-border/60 shadow-lg">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Welcome</CardTitle>
+                    <CardTitle className="font-serif text-2xl text-foreground">Welcome</CardTitle>
                     <CardDescription>
                         Enter your email below to create your account or login.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-4">
+                    {status && (
+                        <div
+                            className={`rounded-md border px-3 py-2 text-sm ${status.type === "error"
+                                    ? "border-destructive/40 bg-destructive/10 text-destructive"
+                                    : "border-primary/30 bg-primary/10 text-primary"
+                                }`}
+                        >
+                            {status.message}
+                        </div>
+                    )}
                     <div className="grid gap-2">
                         <Label htmlFor="email">Email</Label>
                         <Input

@@ -11,6 +11,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 export default function Onboarding() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const [status, setStatus] = useState<{ type: "error" | "success"; message: string } | null>(null);
 
     // Form State
     const [companyName, setCompanyName] = useState("");
@@ -22,13 +23,14 @@ export default function Onboarding() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+        setStatus(null);
 
         // 1. Get the current logged in user
         const { data: { user }, error: userError } = await supabase.auth.getUser();
 
         if (userError || !user) {
             console.error("Auth Error:", userError);
-            alert("Error: You must be logged in!");
+            setStatus({ type: "error", message: "You must be logged in." });
             setLoading(false);
             return;
         }
@@ -49,24 +51,33 @@ export default function Onboarding() {
 
         if (error) {
             console.error("Insert Error:", error);
-            alert("Error saving profile: " + error.message);
+            setStatus({ type: "error", message: "Error saving profile: " + error.message });
             setLoading(false);
         } else {
-            // Success! Redirect to dashboard (we will build this next)
-            alert("Company Profile Created!");
+            setStatus({ type: "success", message: "Company profile created. Redirecting..." });
             router.push("/dashboard");
         }
     };
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
-            <Card className="w-full max-w-md">
+        <div className="flex min-h-screen items-center justify-center bg-background p-4">
+            <Card className="w-full max-w-md border-border/60 shadow-lg">
                 <CardHeader>
-                    <CardTitle>Create Company Profile</CardTitle>
+                    <CardTitle className="font-serif text-foreground">Create Company Profile</CardTitle>
                     <CardDescription>Tell us about your organization to get started.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
+                        {status && (
+                            <div
+                                className={`rounded-md border px-3 py-2 text-sm ${status.type === "error"
+                                        ? "border-destructive/40 bg-destructive/10 text-destructive"
+                                        : "border-primary/30 bg-primary/10 text-primary"
+                                    }`}
+                            >
+                                {status.message}
+                            </div>
+                        )}
 
                         <div className="space-y-2">
                             <Label htmlFor="name">Company Name</Label>

@@ -137,37 +137,43 @@ export default function ReportPage() {
         URL.revokeObjectURL(url);
     };
 
-    if (loading) return <div className="p-10">Calculating Emissions...</div>;
+    if (loading) {
+        return (
+            <div className="flex min-h-screen items-center justify-center bg-background p-10 text-muted-foreground">
+                Calculating emissions...
+            </div>
+        );
+    }
 
     return (
-        <div className="min-h-screen bg-slate-50 p-8">
+        <div className="min-h-screen bg-background p-4 md:p-8">
             <div className="mx-auto max-w-4xl">
-                <div className="mb-6 flex items-center justify-between">
+                <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <Button variant="ghost" onClick={() => router.back()}>
                         <ArrowLeft className="mr-2 h-4 w-4" /> Back
                     </Button>
-                    <h1 className="text-2xl font-bold">Buyer ESG Report</h1>
+                    <h1 className="font-serif text-2xl font-bold text-foreground">Buyer ESG Report</h1>
                 </div>
 
-                <Card className="mb-8 border-l-4 border-l-green-500">
+                <Card className="mb-8 border-border/60 bg-card/70 shadow-md backdrop-blur-sm">
                     <CardHeader>
-                        <CardTitle>Total Impact</CardTitle>
+                        <CardTitle className="text-muted-foreground">Total Impact</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-4xl font-extrabold text-slate-900">
-                            {totalCO2.toFixed(3)} <span className="text-xl font-normal text-slate-500">Tons CO2e</span>
+                        <div className="font-serif text-4xl font-extrabold text-foreground">
+                            {totalCO2.toFixed(3)} <span className="font-sans text-xl font-normal text-muted-foreground">Tons CO2e</span>
                         </div>
-                        <p className="mt-2 text-sm text-slate-500">
+                        <p className="mt-2 text-sm text-muted-foreground">
                             Based on {metrics.length} data entries.
                         </p>
                     </CardContent>
                 </Card>
 
-                <div className="flex justify-end gap-3">
-                    <Button size="lg" onClick={generateCSV} className="border border-slate-300 bg-white hover:bg-slate-50 text-slate-700">
+                <div className="flex flex-col justify-end gap-3 sm:flex-row">
+                    <Button size="lg" variant="outline" onClick={generateCSV}>
                         Export Supplier ESG Questionnaire (CSV)
                     </Button>
-                    <Button size="lg" onClick={generatePDF} className="bg-slate-900 hover:bg-slate-800">
+                    <Button size="lg" onClick={generatePDF}>
                         <Download className="mr-2 h-4 w-4" /> Download Buyer ESG Report
                     </Button>
                 </div>
