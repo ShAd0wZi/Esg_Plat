@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ESGFast
 
 ESGFast is a lightweight ESG reporting platform for export-focused SMEs. It helps teams collect environmental, social, and governance data, attach supporting evidence, and generate buyer-friendly exports in minutes.
