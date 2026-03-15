@@ -7,12 +7,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+<<<<<<< HEAD
 import { ArrowLeft } from "lucide-react";
+=======
+import { ArrowLeft, UploadCloud } from "lucide-react";
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
 export default function AddData() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
     const [status, setStatus] = useState<{ type: "error" | "success"; message: string } | null>(null);
+=======
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
     // --- State for all inputs ---
 
@@ -67,7 +74,11 @@ export default function AddData() {
         const { error } = await supabase.storage.from('bills').upload(fileName, file);
         if (error) {
             console.error("Upload failed", error);
+<<<<<<< HEAD
             setStatus({ type: "error", message: `Failed to upload ${file.name}: ${error.message}` });
+=======
+            alert(`Failed to upload ${file.name}: ${error.message}`);
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
             return null;
         }
         const { data } = supabase.storage.from('bills').getPublicUrl(fileName);
@@ -89,14 +100,21 @@ export default function AddData() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+<<<<<<< HEAD
         setStatus(null);
+=======
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
         const { data: { user }, error: userError } = await supabase.auth.getUser();
 
         if (userError || !user) {
             console.error("Auth Error:", userError);
+<<<<<<< HEAD
             setStatus({ type: "error", message: "Please login to continue." });
             setLoading(false);
+=======
+            alert("Please login");
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
             router.push("/auth");
             return;
         }
@@ -188,7 +206,11 @@ export default function AddData() {
         entries.push({ user_id: user.id, category: 'governance_total', amount: 6, unit: 'count', description, created_at: timestamp });
 
         if (entries.length === 0) {
+<<<<<<< HEAD
                setStatus({ type: "error", message: "No valid data entered to save." });
+=======
+             alert("No valid data entered to save.");
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
              setLoading(false);
              return;
         }
@@ -199,21 +221,33 @@ export default function AddData() {
 
         if (error) {
             console.error("Insert Error:", error);
+<<<<<<< HEAD
             setStatus({ type: "error", message: "Error: " + error.message });
             setLoading(false);
         } else {
             setStatus({ type: "success", message: "Data saved successfully. Redirecting to dashboard..." });
+=======
+            alert("Error: " + error.message);
+            setLoading(false);
+        } else {
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
             router.push("/dashboard");
         }
     };
 
     return (
+<<<<<<< HEAD
         <div className="flex min-h-screen items-center justify-center bg-background p-4">
             <Card className="my-8 w-full max-w-3xl border-border/60 shadow-lg">
+=======
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
+            <Card className="w-full max-w-3xl my-8">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                 <CardHeader className="flex flex-row items-center gap-4">
                     <Button variant="ghost" size="icon" onClick={() => router.back()}>
                         <ArrowLeft className="h-4 w-4" />
                     </Button>
+<<<<<<< HEAD
                     <CardTitle className="font-serif text-foreground">Log ESG Data</CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -232,6 +266,16 @@ export default function AddData() {
                         {/* Section 1: Environmental */}
                         <div className="space-y-6 border-b pb-6">
                             <h3 className="font-serif text-xl font-semibold text-foreground">Environmental Fields</h3>
+=======
+                    <CardTitle>Log ESG Data</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <form onSubmit={handleSubmit} className="space-y-8">
+
+                        {/* Section 1: Environmental */}
+                        <div className="space-y-6 border-b pb-6">
+                            <h3 className="font-semibold text-xl text-slate-800">Environmental Fields</h3>
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
                             {/* Electricity */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
@@ -239,7 +283,11 @@ export default function AddData() {
                                     <Label>Electricity Consumption</Label>
                                     <div className="flex items-center gap-2">
                                         <Input type="number" value={electricity} onChange={e => setElectricity(e.target.value)} placeholder="Value" />
+<<<<<<< HEAD
                                         <span className="w-12 text-sm font-medium text-muted-foreground">kWh</span>
+=======
+                                        <span className="text-sm font-medium text-slate-500 w-12">kWh</span>
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     </div>
                                 </div>
                                 <div className="space-y-2">
@@ -254,7 +302,11 @@ export default function AddData() {
                                     <Label>Water Consumption</Label>
                                     <div className="flex items-center gap-2">
                                         <Input type="number" value={water} onChange={e => setWater(e.target.value)} placeholder="Value" />
+<<<<<<< HEAD
                                         <span className="w-12 text-sm font-medium text-muted-foreground">m3</span>
+=======
+                                        <span className="text-sm font-medium text-slate-500 w-12">m³</span>
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     </div>
                                 </div>
                                 <div className="space-y-2">
@@ -269,14 +321,22 @@ export default function AddData() {
                                     <Label>Diesel Consumption</Label>
                                     <div className="flex items-center gap-2">
                                         <Input type="number" value={diesel} onChange={e => setDiesel(e.target.value)} placeholder="Value" />
+<<<<<<< HEAD
                                         <span className="w-12 text-sm font-medium text-muted-foreground">Liters</span>
+=======
+                                        <span className="text-sm font-medium text-slate-500 w-12">Liters</span>
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     </div>
                                 </div>
                                 <div className="space-y-2">
                                     <Label>Petrol Consumption</Label>
                                     <div className="flex items-center gap-2">
                                         <Input type="number" value={petrol} onChange={e => setPetrol(e.target.value)} placeholder="Value" />
+<<<<<<< HEAD
                                         <span className="w-12 text-sm font-medium text-muted-foreground">Liters</span>
+=======
+                                        <span className="text-sm font-medium text-slate-500 w-12">Liters</span>
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     </div>
                                 </div>
                             </div>
@@ -320,7 +380,11 @@ export default function AddData() {
 
                         {/* Section 2: Social */}
                         <div className="space-y-6 border-b pb-6">
+<<<<<<< HEAD
                             <h3 className="font-serif text-xl font-semibold text-foreground">Social Fields</h3>
+=======
+                            <h3 className="font-semibold text-xl text-slate-800">Social Fields</h3>
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
                             <div className="space-y-4">
                                 <Label className="text-base">Workforce</Label>
@@ -328,7 +392,11 @@ export default function AddData() {
                                     <Label>Total Employees</Label>
                                     <Input type="number" value={employeesTotal} onChange={e => setEmployeesTotal(e.target.value)} placeholder="Total Count" />
                                 </div>
+<<<<<<< HEAD
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+=======
+                                <div className="grid grid-cols-3 gap-4">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     <div className="space-y-2">
                                         <Label className="text-xs">Female</Label>
                                         <Input type="number" value={employeesFemale} onChange={e => setEmployeesFemale(e.target.value)} placeholder="0" />
@@ -342,7 +410,11 @@ export default function AddData() {
                                         <Input type="number" value={employeesOther} onChange={e => setEmployeesOther(e.target.value)} placeholder="0" />
                                     </div>
                                 </div>
+<<<<<<< HEAD
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+=======
+                                <div className="grid grid-cols-2 gap-4">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     <div className="space-y-2">
                                         <Label className="text-xs">Permanent</Label>
                                         <Input type="number" value={employeesPermanent} onChange={e => setEmployeesPermanent(e.target.value)} placeholder="0" />
@@ -356,7 +428,11 @@ export default function AddData() {
 
                             <div className="space-y-4 pt-2">
                                 <Label className="text-base">Health & Safety</Label>
+<<<<<<< HEAD
                                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+=======
+                                <div className="grid grid-cols-3 gap-4">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     <div className="space-y-2">
                                         <Label>Recordable Accidents</Label>
                                         <Input type="number" value={accidentsRecordable} onChange={e => setAccidentsRecordable(e.target.value)} placeholder="0" />
@@ -375,15 +451,22 @@ export default function AddData() {
 
                         {/* Section 3: Governance */}
                         <div className="space-y-6">
+<<<<<<< HEAD
                             <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:items-center">
                                 <h3 className="font-serif text-xl font-semibold text-foreground">Governance Fields</h3>
                                 <div className="w-full md:w-1/3">
+=======
+                            <div className="flex justify-between items-center">
+                                <h3 className="font-semibold text-xl text-slate-800">Governance Fields</h3>
+                                <div className="w-1/3">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     <Label className="text-xs mb-1 block">Policy Docs (Evidence)</Label>
                                     <Input type="file" onChange={e => setFileGov(e.target.files?.[0] || null)} className="text-sm" />
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<<<<<<< HEAD
                                 <label className="flex cursor-pointer items-center space-x-2 rounded-md border border-border p-3 transition-colors hover:bg-secondary/40">
                                     <input type="checkbox" checked={govCodeConduct} onChange={e => setGovCodeConduct(e.target.checked)} className="h-4 w-4 accent-primary" />
                                     <span className="text-sm">Code of Conduct</span>
@@ -405,6 +488,29 @@ export default function AddData() {
                                     <span className="text-sm">Board Oversight of ESG</span>
                                 </label>
                                 <label className="flex cursor-pointer items-center space-x-2 rounded-md border border-border p-3 transition-colors hover:bg-secondary/40">
+=======
+                                <label className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" checked={govCodeConduct} onChange={e => setGovCodeConduct(e.target.checked)} className="h-4 w-4 accent-primary" />
+                                    <span className="text-sm">Code of Conduct</span>
+                                </label>
+                                <label className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" checked={govAntiBribery} onChange={e => setGovAntiBribery(e.target.checked)} className="h-4 w-4 accent-primary" />
+                                    <span className="text-sm">Anti-bribery / Corruption Policy</span>
+                                </label>
+                                <label className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" checked={govWhistleblower} onChange={e => setGovWhistleblower(e.target.checked)} className="h-4 w-4 accent-primary" />
+                                    <span className="text-sm">Whistleblower Policy</span>
+                                </label>
+                                <label className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" checked={govDataPrivacy} onChange={e => setGovDataPrivacy(e.target.checked)} className="h-4 w-4 accent-primary" />
+                                    <span className="text-sm">Data Protection / Privacy Policy</span>
+                                </label>
+                                <label className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+                                    <input type="checkbox" checked={govBoardOversight} onChange={e => setGovBoardOversight(e.target.checked)} className="h-4 w-4 accent-primary" />
+                                    <span className="text-sm">Board Oversight of ESG</span>
+                                </label>
+                                <label className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                                     <input type="checkbox" checked={govSupplierCode} onChange={e => setGovSupplierCode(e.target.checked)} className="h-4 w-4 accent-primary" />
                                     <span className="text-sm">Supplier Code of Conduct</span>
                                 </label>

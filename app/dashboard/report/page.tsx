@@ -137,6 +137,7 @@ export default function ReportPage() {
         URL.revokeObjectURL(url);
     };
 
+<<<<<<< HEAD
     if (loading) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-background p-10 text-muted-foreground">
@@ -164,16 +165,47 @@ export default function ReportPage() {
                             {totalCO2.toFixed(3)} <span className="font-sans text-xl font-normal text-muted-foreground">Tons CO2e</span>
                         </div>
                         <p className="mt-2 text-sm text-muted-foreground">
+=======
+    if (loading) return <div className="p-10">Calculating Emissions...</div>;
+
+    return (
+        <div className="min-h-screen bg-slate-50 p-8">
+            <div className="mx-auto max-w-4xl">
+                <div className="mb-6 flex items-center justify-between">
+                    <Button variant="ghost" onClick={() => router.back()}>
+                        <ArrowLeft className="mr-2 h-4 w-4" /> Back
+                    </Button>
+                    <h1 className="text-2xl font-bold">Buyer ESG Report</h1>
+                </div>
+
+                <Card className="mb-8 border-l-4 border-l-green-500">
+                    <CardHeader>
+                        <CardTitle>Total Impact</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="text-4xl font-extrabold text-slate-900">
+                            {totalCO2.toFixed(3)} <span className="text-xl font-normal text-slate-500">Tons CO2e</span>
+                        </div>
+                        <p className="mt-2 text-sm text-slate-500">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                             Based on {metrics.length} data entries.
                         </p>
                     </CardContent>
                 </Card>
 
+<<<<<<< HEAD
                 <div className="flex flex-col justify-end gap-3 sm:flex-row">
                     <Button size="lg" variant="outline" onClick={generateCSV}>
                         Export Supplier ESG Questionnaire (CSV)
                     </Button>
                     <Button size="lg" onClick={generatePDF}>
+=======
+                <div className="flex justify-end gap-3">
+                    <Button size="lg" onClick={generateCSV} className="border border-slate-300 bg-white hover:bg-slate-50 text-slate-700">
+                        Export Supplier ESG Questionnaire (CSV)
+                    </Button>
+                    <Button size="lg" onClick={generatePDF} className="bg-slate-900 hover:bg-slate-800">
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                         <Download className="mr-2 h-4 w-4" /> Download Buyer ESG Report
                     </Button>
                 </div>

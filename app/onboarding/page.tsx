@@ -11,7 +11,10 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/com
 export default function Onboarding() {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
     const [status, setStatus] = useState<{ type: "error" | "success"; message: string } | null>(null);
+=======
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
     // Form State
     const [companyName, setCompanyName] = useState("");
@@ -23,14 +26,21 @@ export default function Onboarding() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
+<<<<<<< HEAD
         setStatus(null);
+=======
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
         // 1. Get the current logged in user
         const { data: { user }, error: userError } = await supabase.auth.getUser();
 
         if (userError || !user) {
             console.error("Auth Error:", userError);
+<<<<<<< HEAD
             setStatus({ type: "error", message: "You must be logged in." });
+=======
+            alert("Error: You must be logged in!");
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
             setLoading(false);
             return;
         }
@@ -51,23 +61,39 @@ export default function Onboarding() {
 
         if (error) {
             console.error("Insert Error:", error);
+<<<<<<< HEAD
             setStatus({ type: "error", message: "Error saving profile: " + error.message });
             setLoading(false);
         } else {
             setStatus({ type: "success", message: "Company profile created. Redirecting..." });
+=======
+            alert("Error saving profile: " + error.message);
+            setLoading(false);
+        } else {
+            // Success! Redirect to dashboard (we will build this next)
+            alert("Company Profile Created!");
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
             router.push("/dashboard");
         }
     };
 
     return (
+<<<<<<< HEAD
         <div className="flex min-h-screen items-center justify-center bg-background p-4">
             <Card className="w-full max-w-md border-border/60 shadow-lg">
                 <CardHeader>
                     <CardTitle className="font-serif text-foreground">Create Company Profile</CardTitle>
+=======
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4">
+            <Card className="w-full max-w-md">
+                <CardHeader>
+                    <CardTitle>Create Company Profile</CardTitle>
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
                     <CardDescription>Tell us about your organization to get started.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
+<<<<<<< HEAD
                         {status && (
                             <div
                                 className={`rounded-md border px-3 py-2 text-sm ${status.type === "error"
@@ -78,6 +104,8 @@ export default function Onboarding() {
                                 {status.message}
                             </div>
                         )}
+=======
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
                         <div className="space-y-2">
                             <Label htmlFor="name">Company Name</Label>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ESGFast
 
 ESGFast is a lightweight ESG reporting platform for export-focused SMEs. It helps teams collect environmental, social, and governance data, attach supporting evidence, and generate buyer-friendly exports in minutes.
@@ -159,4 +160,6 @@ This project can be deployed on Vercel.
 ## License
 
 Choose a license before publishing (for example MIT).
+=======
+>>>>>>> fb4c901a8a556d36ef0bcbc5d240a9b4e405fda8
 
